@@ -1,0 +1,578 @@
+/* ==========================================================================
+   1. DESIGN TOKENS (Variables)
+   ========================================================================== */
+:root {
+    /* Brand Colors */
+    --clr-evergreen: #244D3B;
+    --clr-sage: #A8B9A2;
+    --clr-ivory: #F5F3EB;
+    --clr-sand: #D7C4A3;
+    
+    /* UI Colors */
+    --clr-text-main: #1C1C1C;
+    --clr-text-muted: #5A5A5A;
+    --clr-white: #FFFFFF;
+    --clr-border: rgba(36, 77, 59, 0.15);
+
+    /* Typography */
+    --font-heading: 'DM Serif Display', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Fluid Typography (Scales smoothly from mobile to desktop) */
+    --fs-hero: clamp(3rem, 5vw + 1rem, 5.5rem);
+    --fs-h2: clamp(2.25rem, 3vw + 1rem, 3.5rem);
+    --fs-h3: clamp(1.25rem, 1vw + 1rem, 1.75rem);
+    --fs-body: clamp(1rem, 0.5vw + 0.8rem, 1.125rem);
+    
+    /* Spacing (8px scale) */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 8rem;
+    --space-xxl: 12rem;
+
+    /* Layout */
+    --container-max: 1280px;
+    --radius-sm: 4px;
+    --radius-md: 12px;
+    --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ==========================================================================
+   2. RESET & BASE
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    color: var(--clr-text-main);
+    background-color: var(--clr-ivory);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ==========================================================================
+   3. TYPOGRAPHY
+   ========================================================================== */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--clr-evergreen);
+}
+
+h1 { font-size: var(--fs-hero); letter-spacing: -0.02em; }
+h2 { font-size: var(--fs-h2); margin-bottom: var(--space-sm); letter-spacing: -0.01em; }
+h3 { font-size: var(--fs-h3); }
+
+p {
+    color: var(--clr-text-muted);
+    max-width: 65ch; /* Optimal reading width */
+}
+
+/* ==========================================================================
+   4. LAYOUT & CONTAINERS
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: 5%;
+}
+
+.section-padding {
+    padding-block: var(--space-xl);
+}
+
+/* ==========================================================================
+   5. COMPONENTS (Buttons, Navigation, Forms)
+   ========================================================================== */
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--clr-evergreen);
+    color: var(--clr-white);
+}
+
+.btn-primary:hover {
+    background-color: #1a382b; /* Darker evergreen */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(36, 77, 59, 0.2);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border-color: var(--clr-evergreen);
+    color: var(--clr-evergreen);
+}
+
+.btn-outline:hover {
+    background-color: var(--clr-evergreen);
+    color: var(--clr-white);
+    transform: translateY(-2px);
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* Header & Navigation */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(245, 243, 235, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--clr-border);
+    transition: var(--transition);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: 0.1em;
+    color: var(--clr-evergreen);
+}
+
+.desktop-nav {
+    display: none;
+}
+
+/* Mobile Menu */
+.mobile-menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 1002;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 28px;
+    height: 2px;
+    background-color: var(--clr-evergreen);
+    transition: var(--transition);
+}
+
+.mobile-nav {
+    position: fixed;
+    inset: 0;
+    background-color: var(--clr-ivory);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-md);
+    transform: translateY(-100%);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 1001;
+}
+
+.mobile-nav.active {
+    transform: translateY(0);
+}
+
+.mobile-nav a {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--clr-evergreen);
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: var(--space-md);
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: var(--space-xs);
+    color: var(--clr-evergreen);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--clr-sage);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--clr-text-main);
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-bottom-color: var(--clr-evergreen);
+}
+
+.form-group select {
+    cursor: pointer;
+    appearance: none; /* Removes default OS styling */
+}
+
+/* ==========================================================================
+   6. SPECIFIC SECTIONS
+   ========================================================================== */
+/* Hero Section */
+.hero {
+    padding-top: 140px;
+    padding-bottom: var(--space-xl);
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--clr-evergreen);
+    margin-bottom: var(--space-sm);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--clr-sand);
+}
+
+.hero-content h1 {
+    margin-bottom: var(--space-md);
+}
+
+.hero-actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 50vh;
+    min-height: 400px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* Services Section */
+.services {
+    background-color: var(--clr-white);
+}
+
+.section-header {
+    margin-bottom: var(--space-lg);
+    max-width: 600px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg) var(--space-md);
+}
+
+.service-item {
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--clr-border);
+    transition: var(--transition);
+}
+
+.service-item h3 {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--clr-evergreen);
+    margin-bottom: var(--space-xs);
+}
+
+/* About Section */
+.about {
+    display: grid;
+    gap: var(--space-lg);
+    align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    height: 400px;
+    border-radius: var(--radius-md);
+}
+
+/* Why Us Section */
+.why-us {
+    background-color: var(--clr-sage);
+    color: var(--clr-evergreen);
+}
+
+.why-us h2 {
+    margin-bottom: var(--space-lg);
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg) var(--space-md);
+}
+
+.why-item h3 {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+    border-bottom: 1px solid rgba(36,77,59,0.2);
+    padding-bottom: 0.5rem;
+}
+
+.why-item p {
+    color: #2a4236;
+}
+
+/* How It Works */
+.steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
+}
+
+.step-number {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--clr-sand);
+    display: block;
+    margin-bottom: var(--space-xs);
+    line-height: 1;
+}
+
+.step h3 {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+}
+
+/* Quote Form */
+.quote-section {
+    background-color: var(--clr-white);
+}
+
+.form-container {
+    max-width: 700px;
+    background-color: var(--clr-ivory);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.form-header p {
+    margin-inline: auto;
+}
+
+.form-note {
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: var(--space-sm);
+    color: var(--clr-text-muted);
+}
+
+/* Footer */
+.site-footer {
+    background-color: var(--clr-evergreen);
+    color: var(--clr-ivory);
+    padding-block: var(--space-lg) var(--space-md);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.site-footer .logo {
+    color: var(--clr-white);
+    margin-bottom: var(--space-sm);
+    display: inline-block;
+}
+
+.site-footer p {
+    color: var(--clr-sage);
+}
+
+.footer-links h4 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--clr-white);
+    margin-bottom: var(--space-sm);
+}
+
+.footer-links a {
+    display: block;
+    color: var(--clr-sage);
+    margin-bottom: var(--space-xs);
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--clr-white);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    font-size: 0.85rem;
+    color: var(--clr-sage);
+}
+
+.portfolio-disclaimer {
+    font-style: italic;
+    opacity: 0.7;
+}
+
+/* ==========================================================================
+   7. MEDIA QUERIES (Mobile First)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .why-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .steps-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 2fr 1fr;
+    }
+    
+    .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Navigation */
+    .desktop-nav {
+        display: flex;
+        align-items: center;
+        gap: var(--space-md);
+    }
+
+    .desktop-nav a {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--clr-evergreen);
+        transition: var(--transition);
+    }
+
+    .desktop-nav a:hover {
+        opacity: 0.7;
+    }
+
+    .desktop-nav .btn-primary {
+        color: var(--clr-white);
+    }
+
+    .mobile-menu-btn {
+        display: none;
+    }
+
+    /* Layouts */
+    .hero {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        min-height: 90vh;
+    }
+
+    .hero-image img {
+        height: 70vh;
+    }
+
+    .about {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-image img {
+        height: 600px;
+    }
+
+    .why-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .steps-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
